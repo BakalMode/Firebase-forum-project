@@ -1,0 +1,33 @@
+/* CSS code for the About page */
+
+.about-container {
+    margin: 20px;
+  }
+  
+  .about-heading {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .about-content {
+    line-height: 1.5;
+  }
+  
+  .about-content p {
+    margin-bottom: 10px;
+  }
+  
+  .about-content ul {
+    margin-bottom: 10px;
+  }
+  
+  .about-content ul li {
+    list-style-type: square;
+    margin-left: 20px;
+  }
+
+  .navbar-no-margin {
+  margin: -20px;
+  margin-bottom: 35px;
+}
+  

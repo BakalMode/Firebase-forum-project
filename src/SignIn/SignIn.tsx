@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import './signIn.css';
 import { auth, firestore, googleAuth, db } from '../config/firebase';
 import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { getDocs, collection, DocumentData, addDoc, doc, getDoc } from 'firebase/firestore';
+import { getDocs, collection, DocumentData, addDoc,where, query,  doc, getDoc } from 'firebase/firestore';
+
 import { Link } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 
@@ -42,9 +43,13 @@ const SignIn = () => {
   
       // Check if the user already exists
       const usersRef = collection(db, 'users');
-      const userSnapshot = await getDoc(doc(usersRef, user.uid));
+      const q = query(usersRef, where('uid', '==', user.uid));
+      const userSnapshot = await getDocs(q);
   
-      if (!userSnapshot.exists()) {
+      if (!userSnapshot.empty) {
+        const userData = userSnapshot.docs[0].data();
+        console.log(userData); // Retrieve user data
+      } else {
         // Create a new user document
         await addDoc(usersRef, {
           uid: user.uid,
@@ -55,9 +60,8 @@ const SignIn = () => {
       console.log(error);
       // Handle the error here
     }
-  
-    window.location.href = '/';
   };
+  
 
   return (
     <div>      <Navbar/>

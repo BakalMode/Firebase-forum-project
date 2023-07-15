@@ -5,6 +5,7 @@ import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { auth, db, storage } from '../config/firebase'; // Import the storage object from your Firebase configuration file
 import Navbar from '../Navbar/Navbar';
 
+
 import {
   getDocs,
   collection,
@@ -18,6 +19,26 @@ import {
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { display } from '@mui/system';
+import Button from '@mui/material/Button';
+import { createTheme, ThemeProvider } from '@mui/material';
+
+const theme = createTheme({
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          '&.MuiButton-contained': {
+            backgroundColor: '#333333',
+            '&:hover': {
+              backgroundColor: '#555555',
+            },
+          },
+        },
+      },
+    },
+  },
+});
 
 function App() {
   const msgCollectionRef = collection(db, 'messages');
@@ -156,59 +177,61 @@ function App() {
   };
 
   return (
-    <div className="App" style={{ position: 'fixed', width: '100%', height: '100%' }}>
-      <Navbar />
+    <ThemeProvider theme={theme}>
+      <div className="App" style={{ position: 'fixed', width: '100%', height: '100%' }}>
+        <Navbar />
+        <div style={{ display: "flex" }}>
+          <div className="msgsarea">
+            <div className="messages-container">
+              {msgList.map((msg, index) => {
+                const user = userList.find((user) => user.uid === msg.uid);
+                console.log(user);
+                console.log(user?.isAdmin);
+                // Check if the current message is posted by the logged-in user
+                const isCurrentUserMessage = auth.currentUser && auth.currentUser.uid === msg.uid;
+                const isLiked = likedMessages.includes(msg.id);
 
-      <div className="msgsarea" >
-        <div className="messages-container">
-          {msgList.map((msg, index) => {
-            const user = userList.find((user) => user.uid === msg.uid);
-            console.log(user);
-            console.log(user?.isAdmin);
-            // Check if the current message is posted by the logged-in user
-            const isCurrentUserMessage = auth.currentUser && auth.currentUser.uid === msg.uid;
-            const isLiked = likedMessages.includes(msg.id);
+                return (
+                  <div key={index} className="forum-details">
+                    <h4 style={{ color: user?.isAdmin ? 'red' : 'black', textDecoration: "underline" }}>posted by - {msg.user}</h4>
+                    {msg.image && <img src={msg.image} alt="Uploaded" style={{ maxWidth: '300px' }} />}
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <p className="post-content" style={{ minWidth: "px" }}>{msg.content}</p>
+                      {isLiked ? (
+                        <FavoriteIcon onClick={() => handleLike(msg.id)} style={{ color: '#F1576C' }} />
+                      ) : (
+                        <FavoriteBorderIcon onClick={() => handleLike(msg.id)} />
+                      )}
+                      <span>{msg.numberOfLikes}</span>
+                    </div>
 
-            return (
-              <div key={index} className="forum-details">
-                <h4 style={{ color: user?.isAdmin ? 'red' : 'black' }}>posted by - {msg.user}</h4>
-                {msg.image && <img src={msg.image} alt="Uploaded" style={{ maxWidth: '300px' }} />}
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <p className="post-content">{msg.content}</p>
-                  {isLiked ? (
-                    <FavoriteIcon onClick={() => handleLike(msg.id)} style={{ color: '#F1576C'}} />
-                  ) : (
-                    <FavoriteBorderIcon onClick={() => handleLike(msg.id)} />
-                  )}
-                  <span>{msg.numberOfLikes}</span>
-                </div>
-
-                {isCurrentUserMessage && (
-                  <button onClick={() => onDeleteMsg(msg.id)}>Delete</button>
-                )}
-              </div>
-            );
-          })}
+                    {isCurrentUserMessage && (
+                      <Button variant="contained" style={{height:"30px"}} onClick={() => onDeleteMsg(msg.id)}>Delete</Button>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div className='sendingMessage'>
+            <input type="file" onChange={(e) => setSelectedImage(e.target.files ? e.target.files[0] : null)} />
+            <br />
+            <textarea
+              style={{ height: '100px', width: '300px', resize: 'vertical' }}
+              placeholder="post something here :)"
+              value={newContent}
+              onChange={(e) => setNewContent(e.target.value)}
+            />
+            <br />
+            <Button variant="contained" onClick={onPostMsg}>Post</Button>
+          </div>
         </div>
-      </div>
 
-      <div>
-        <input type="file" onChange={(e) => setSelectedImage(e.target.files ? e.target.files[0] : null)} />
-        <br />
-        <textarea
-          style={{ height: '100px', width: '300px', resize: 'vertical' }}
-          placeholder="post something here :)"
-          value={newContent}
-          onChange={(e) => setNewContent(e.target.value)}
-        />
-        <br />
-        <button onClick={onPostMsg}>Post</button>
+        <footer>
+          <p>&copy; 2023 WebDevs forum. All rights reserved.</p>
+        </footer>
       </div>
-
-      <footer>
-        <p>&copy; 2023 WebDevs forum. All rights reserved.</p>
-      </footer>
-    </div>
+    </ThemeProvider>
   );
 }
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../Navbar/Navbar';
 import { auth } from '../config/firebase'; // Import the Firebase auth instance
+import "./forumUsers.css"
 
 const ForumUsers = () => {
   const [users, setUsers] = useState<any[]>([]);
@@ -40,13 +41,13 @@ const ForumUsers = () => {
   return (
     <div>
       <Navbar />
-      <div>
-        <h1>User List</h1>
+      <div className="user-list-container">
+        <h1 style={{ textDecoration: "underline", marginBottom: "20px" }}>User List</h1>
         {isLoggedIn ? (
-          <ul>
+          <ul className="user-list">
             {users.map((user: any) => (
-              <li key={user.uid}>
-                Email: {user.email}, Display Name: {user.displayName}
+              <li className="user-item" key={user.uid}>
+                <span>Email:</span> {user.email}, <span>Display Name:</span> {user.displayName}
               </li>
             ))}
           </ul>
@@ -56,6 +57,7 @@ const ForumUsers = () => {
       </div>
     </div>
   );
+  
 };
 
 export default ForumUsers;

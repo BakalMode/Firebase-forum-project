@@ -1,0 +1,18 @@
+.user-list-container {
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 20px;
+  }
+  
+  .user-item {
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .user-item span {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+  

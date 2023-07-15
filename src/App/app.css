@@ -62,6 +62,7 @@ main {
   background-color: #f5f5f5;
   padding: 10px;
   margin-bottom: 10px;
+  min-width: 400px;
 }
 
 footer {
@@ -77,10 +78,10 @@ footer {
 
 .msgsarea {
   margin-left: 25px;
-  margin-right: 25px;
+  margin-right: 55px;
   border-color: #333;
-  height: 60%;
-  overflow-y: scroll; /* Add scroll overflow */
+  overflow-y: auto; /* Set overflow-y to auto */
+  max-height: calc(100vh - 150px); /* Set a maximum height to enable scrolling */
 }
 
 .messages-container {
@@ -88,6 +89,10 @@ footer {
   flex-direction: column;
   gap: 10px;
   padding-right: 10px;
+  width: 100%; /* Add width: 100% to fill the available space */
 }
 
+.sendingMessage{
+  margin-top: 25px;
+}
 

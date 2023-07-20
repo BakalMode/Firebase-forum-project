@@ -1,46 +1,28 @@
-# Getting Started with Create React App
+# Setting up Instructions
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### in order for this project to work properly you'll also need to set up a simple backend flask app                                
+a fully detailed explanation is aveliable here:                                                                                         
+https://github.com/BakalMode/Firebase-forum-project-back                                                                                
 
-## Available Scripts
+### to install all packedges used in this project you'll need to enter                                                                
+this command: npm i                                                                                                                 
 
-In the project directory, you can run:
+### afterwards you will need to modify the config file / firebase.tsx                                                                   
 
-### `npm start`
+const firebaseConfig = {
+  apiKey: "AIzaSyCxWqgU4jjyMtLaE7oVERLSxxxxxxxxx",
+  authDomain: "proj-xxxxx.firebaseapp.com",
+  projectId: "proj-xxxxx",
+  storageBucket: "proj-xxxxxxx.appspot.com",
+  messagingSenderId: "689xxxxxxx",
+  appId: "1:689xxxxxx:web:43xxxxxx",
+  measurementId: "G-4xxxxxVSV"
+};
+                                                                                                                                        
+you will need to go to your firebase project and get  yoour firebaseConfig and paste it in firebase.tsx                                  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+for the final step do: npm start. and enjoy :) 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).

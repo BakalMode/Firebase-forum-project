@@ -19,7 +19,7 @@ const firebaseConfig = {
   measurementId: "G-4xxxxxVSV"                                                                                                                          
 };                                                                                                                                          
                                                                                                                                         
-you will need to go to your firebase project and get  yoour firebaseConfig and paste it in firebase.tsx                                  
+you will need to go to your firebase project and get your firebaseConfig and paste it in firebase.tsx                                  
 
 for the final step do: npm start. and enjoy :) 
 
